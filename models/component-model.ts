@@ -1,0 +1,34 @@
+import {
+  componentTypes,
+  componentTypesWithSize,
+  deviceTypes,
+} from "@/lib/config";
+import mongoose, { Schema } from "mongoose";
+
+const ComponentSchema = new Schema({
+  type: {
+    type: String,
+    enum: componentTypes,
+    required: true,
+  },
+  size: {
+    type: Number,
+    required: function (this: any) {
+      return componentTypesWithSize.includes(this.type) === true;
+    },
+  },
+  name: {
+    type: String,
+    required: function (this: any) {
+      return componentTypesWithSize.includes(this.type) !== true;
+    },
+  },
+  forDevice: {
+    type: String,
+    enum: deviceTypes,
+    required: true,
+  },
+});
+
+const ComponentModel = mongoose.model("Component", ComponentSchema);
+export default ComponentModel;
