@@ -27,6 +27,7 @@ import {
 } from "../ui/select";
 import ButtonSubmit from "../shared/button-submit";
 import ComponentSchema from "@/schemas/component-schema";
+import axios from "axios";
 
 const FormCreate = () => {
   const methods = useForm<z.infer<typeof ComponentSchema>>({
@@ -36,6 +37,7 @@ const FormCreate = () => {
       name: "",
       size: 0,
       forDevice: undefined,
+      quantity: 0,
     },
   });
 
@@ -49,8 +51,9 @@ const FormCreate = () => {
   const watchType = watch("type");
 
   const onSubmit = async (values: z.infer<typeof ComponentSchema>) => {
-    await new Promise((resolve) => setTimeout(() => resolve(0), 2000));
     console.log(values);
+    const request = await axios.post("/api/components", values);
+    console.log(request.data);
   };
 
   return (
@@ -139,6 +142,19 @@ const FormCreate = () => {
                   ))}
                 </SelectContent>
               </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={control}
+          name="quantity"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Quantity</FormLabel>
+              <FormControl>
+                <Input type="number" {...field} />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}

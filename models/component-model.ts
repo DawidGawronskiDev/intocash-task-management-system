@@ -28,7 +28,13 @@ const ComponentSchema = new Schema({
     enum: deviceTypes,
     required: true,
   },
+  quantity: {
+    type: Number,
+    required: true,
+  },
 });
 
-const ComponentModel = mongoose.model("Component", ComponentSchema);
+const ComponentModel =
+  mongoose.models.Component || mongoose.model("Component", ComponentSchema);
+
 export default ComponentModel;

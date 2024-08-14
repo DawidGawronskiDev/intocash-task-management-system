@@ -1,8 +1,5 @@
-import {
-  componentTypes,
-  componentTypesWithSize,
-  deviceTypes,
-} from "@/lib/config";
+import { componentTypes, deviceTypes } from "@/lib/config";
+import { hasSize } from "@/utils";
 import z from "zod";
 
 const ComponentSchema = z
@@ -11,13 +8,11 @@ const ComponentSchema = z
     name: z.string().optional(),
     size: z.coerce.number().optional(),
     forDevice: z.enum(deviceTypes as [string, ...string[]]),
+    quantity: z.coerce.number().min(1),
   })
   .refine(
     (data) => {
-      if (
-        componentTypesWithSize.includes(data.type) &&
-        (data.size === undefined || data.size <= 0)
-      ) {
+      if (hasSize(data.type) && (data.size === undefined || data.size <= 0)) {
         return false;
       }
       return true;
@@ -29,10 +24,7 @@ const ComponentSchema = z
   )
   .refine(
     (data) => {
-      if (
-        !componentTypesWithSize.includes(data.type) &&
-        (!data.name || data.name.length === 0)
-      ) {
+      if (!hasSize(data.type) && (!data.name || data.name.length === 0)) {
         return false;
       }
       return true;
