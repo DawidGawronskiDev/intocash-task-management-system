@@ -1,7 +1,21 @@
 import dbConnect from "@/lib/dbConnect";
 import ComponentModel from "@/models/component-model";
 import ComponentSchema from "@/schemas/component-schema";
+import { Component } from "@/types";
 import { hasSize } from "@/utils";
+import { NextResponse } from "next/server";
+
+export const GET = async (request: Request) => {
+  await dbConnect();
+
+  const components = (await ComponentModel.find({})) as Component[];
+
+  if (!components) {
+    return new Response("Internal server error", { status: 500 });
+  }
+
+  return NextResponse.json(components, { status: 200 });
+};
 
 export const POST = async (request: Request) => {
   const requestData = await request.json();

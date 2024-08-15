@@ -2,7 +2,7 @@ import Form from "@/components/components/form-create";
 
 const ComponentsPage = () => {
   return (
-    <div>
+    <div className="h-full flex items-center justify-center">
       <Form />
     </div>
   );

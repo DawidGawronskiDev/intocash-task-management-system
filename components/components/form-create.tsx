@@ -28,8 +28,11 @@ import {
 import ButtonSubmit from "../shared/button-submit";
 import ComponentSchema from "@/schemas/component-schema";
 import axios from "axios";
+import { useToast } from "../ui/use-toast";
 
 const FormCreate = () => {
+  const { toast } = useToast();
+
   const methods = useForm<z.infer<typeof ComponentSchema>>({
     resolver: zodResolver(ComponentSchema),
     defaultValues: {
@@ -52,8 +55,22 @@ const FormCreate = () => {
 
   const onSubmit = async (values: z.infer<typeof ComponentSchema>) => {
     console.log(values);
-    const request = await axios.post("/api/components", values);
-    console.log(request.data);
+    const request = await axios
+      .post("/api/components", values)
+      .then((response) => {
+        toast({
+          title: "Success",
+          description: "Component created successfully",
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to create component",
+        });
+      });
   };
 
   return (
@@ -61,7 +78,7 @@ const FormCreate = () => {
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
-        className="grid gap-8 max-w-xl mx-auto p-4"
+        className="grid gap-8 max-w-xl mx-auto p-4 w-full"
       >
         <FormField
           control={control}
