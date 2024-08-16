@@ -56,7 +56,6 @@ const SelectComponents = ({ data }: SelectComponentsProps) => {
               key={field.id}
               fieldMethods={fieldMethods}
               data={data}
-              field={field}
               index={index}
             />
           ))}
@@ -75,18 +74,15 @@ const SelectComponents = ({ data }: SelectComponentsProps) => {
 type SelectComponentProps = {
   data: Component[];
   fieldMethods: UseFieldArrayReturn<FieldValues, "components", "id">;
-  field: Record<"id", string>;
   index: number;
 };
 
 const SelectComponent = ({
   data,
   fieldMethods,
-  field,
   index,
 }: SelectComponentProps) => {
   const [currentType, setCurrentType] = useState<string>("");
-  const { control, setValue } = useFormContext();
 
   const handleCurrentType = (value: string) => {
     setCurrentType(value);
