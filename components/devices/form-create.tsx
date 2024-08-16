@@ -2,7 +2,7 @@
 
 import { brands, deviceTypes } from "@/lib/config";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import z from "zod";
 import {
   Form,
@@ -21,33 +21,16 @@ import {
   SelectValue,
 } from "../ui/select";
 import ButtonSubmit from "../shared/button-submit";
-import { Input } from "../ui/input";
-import { useQuery } from "@tanstack/react-query";
-import { getComponents } from "@/lib/http";
-import Loading from "../shared/loading";
 import SelectComponents from "../shared/select-components";
+import DeviceSchema from "@/schemas/device-schema";
+import { Input } from "../ui/input";
+import { Component } from "@/types";
 
-const DeviceSchema = z.object({
-  type: z.enum([...deviceTypes] as [string, ...string[]]),
-  brand: z.enum([...brands] as [string, ...string[]]),
-  model: z.string().min(1),
-  components: z
-    .array(
-      z.object({
-        type: z.string().min(1, "Required"),
-        componentId: z.string().min(1, "Required"),
-      })
-    )
-    .optional(),
-  quantity: z.coerce.number().min(1),
-});
+type FormProps = {
+  data: Component[];
+};
 
-const FormCreate = () => {
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["components"],
-    queryFn: getComponents,
-  });
-
+const FormCreate = ({ data }: FormProps) => {
   const methods = useForm<z.infer<typeof DeviceSchema>>({
     resolver: zodResolver(DeviceSchema),
     defaultValues: {
@@ -56,6 +39,7 @@ const FormCreate = () => {
       model: "",
       components: [],
       quantity: 1,
+      shelf: "",
     },
   });
 
@@ -66,15 +50,9 @@ const FormCreate = () => {
     formState: { isSubmitting },
   } = methods;
 
-  console.log(getValues().components);
-
   const onSubmit = (values: z.infer<typeof DeviceSchema>) => {
     console.log(values);
   };
-
-  if (isLoading) {
-    return <Loading />;
-  }
 
   return (
     <Form {...methods}>
@@ -88,7 +66,7 @@ const FormCreate = () => {
           name="type"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Type</FormLabel>
+              <FormLabel>Type*</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -113,7 +91,7 @@ const FormCreate = () => {
           name="brand"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Brand</FormLabel>
+              <FormLabel>Brand*</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -137,7 +115,7 @@ const FormCreate = () => {
           name="model"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Model</FormLabel>
+              <FormLabel>Model*</FormLabel>
               <FormControl>
                 <Input type="text" {...field} />
               </FormControl>
@@ -155,12 +133,25 @@ const FormCreate = () => {
           name="quantity"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Quantity</FormLabel>
+              <FormLabel>Quantity*</FormLabel>
               <FormControl>
                 <Input type="number" {...field} />
               </FormControl>
 
               <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={control}
+          name="shelf"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Shelf</FormLabel>
+              <FormControl>
+                <Input type="text" placeholder="Shelf" {...field} />
+              </FormControl>
             </FormItem>
           )}
         />
