@@ -25,12 +25,16 @@ import SelectComponents from "../shared/select-components";
 import DeviceSchema from "@/schemas/device-schema";
 import { Input } from "../ui/input";
 import { Component } from "@/types";
+import axios from "axios";
+import { useToast } from "../ui/use-toast";
 
 type FormProps = {
   data: Component[];
 };
 
 const FormCreate = ({ data }: FormProps) => {
+  const { toast } = useToast();
+
   const methods = useForm<z.infer<typeof DeviceSchema>>({
     resolver: zodResolver(DeviceSchema),
     defaultValues: {
@@ -44,14 +48,28 @@ const FormCreate = ({ data }: FormProps) => {
   });
 
   const {
-    getValues,
     control,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = (values: z.infer<typeof DeviceSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof DeviceSchema>) => {
+    await axios
+      .post("/api/devices/", values)
+      .then(() => {
+        toast({
+          title: "Success",
+          description: <code>{JSON.stringify(values, null, 2)}</code>,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: <p>Failed to create device</p>,
+        });
+      });
   };
 
   return (
