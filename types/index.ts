@@ -11,12 +11,14 @@ export type ComponentType =
 export type DeviceType = "Laptop" | "Desktop";
 
 export type ComponentWithSize = {
+  _id: string;
   type: ComponentType;
   size: string;
   forDevice: DeviceType;
 };
 
 export type ComponentWithName = {
+  _id: string;
   type: ComponentType;
   name: string;
   forDevice: DeviceType;

@@ -25,13 +25,20 @@ import { Input } from "../ui/input";
 import { useQuery } from "@tanstack/react-query";
 import { getComponents } from "@/lib/http";
 import Loading from "../shared/loading";
-import { Button } from "../ui/button";
+import SelectComponents from "../shared/select-components";
 
 const DeviceSchema = z.object({
   type: z.enum([...deviceTypes] as [string, ...string[]]),
   brand: z.enum([...brands] as [string, ...string[]]),
   model: z.string().min(1),
-  components: z.array(z.string()).optional(),
+  components: z
+    .array(
+      z.object({
+        type: z.string().min(1, "Required"),
+        componentId: z.string().min(1, "Required"),
+      })
+    )
+    .optional(),
   quantity: z.coerce.number().min(1),
 });
 
@@ -40,8 +47,6 @@ const FormCreate = () => {
     queryKey: ["components"],
     queryFn: getComponents,
   });
-
-  console.log(data);
 
   const methods = useForm<z.infer<typeof DeviceSchema>>({
     resolver: zodResolver(DeviceSchema),
@@ -55,15 +60,16 @@ const FormCreate = () => {
   });
 
   const {
+    getValues,
     control,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
-  const { fields, append } = useFieldArray({ control, name: "components" });
+  console.log(getValues().components);
 
   const onSubmit = (values: z.infer<typeof DeviceSchema>) => {
-    console.log(onSubmit);
+    console.log(values);
   };
 
   if (isLoading) {
@@ -72,7 +78,11 @@ const FormCreate = () => {
 
   return (
     <Form {...methods}>
-      <form noValidate onSubmit={handleSubmit(onSubmit)} className="grid gap-8">
+      <form
+        noValidate
+        onSubmit={handleSubmit(onSubmit)}
+        className="grid gap-8 w-full p-4 max-w-2xl"
+      >
         <FormField
           control={control}
           name="type"
@@ -138,42 +148,8 @@ const FormCreate = () => {
             </FormItem>
           )}
         />
-        {fields.map((field, index) => (
-          <FormField
-            key={field.id}
-            name={"components" + index}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Component</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a component" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {data!.map((component) => (
-                      <SelectItem
-                        key={component._id as string}
-                        value={component._id as string}
-                      >
-                        {(component.size as number) ||
-                          (component.name as string)}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        ))}
-        <Button type="button" onClick={() => append(undefined)}>
-          Add Component
-        </Button>
+        <SelectComponents data={data} />
+
         <FormField
           control={control}
           name="quantity"
