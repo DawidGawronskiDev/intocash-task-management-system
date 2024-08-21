@@ -1,3 +1,5 @@
+import { type ReactNode } from "react";
+
 export type ComponentType =
   | "RAM"
   | "SSD"
@@ -25,3 +27,7 @@ export type ComponentWithName = {
 };
 
 export type Component = ComponentWithSize | ComponentWithName;
+
+export type Layout = {
+  children: ReactNode;
+};
