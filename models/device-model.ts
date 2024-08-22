@@ -1,5 +1,5 @@
 import { brands, deviceTypes } from "@/lib/config";
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, InferSchemaType } from "mongoose";
 
 const DeviceSchema = new Schema(
   {
@@ -34,7 +34,10 @@ const DeviceSchema = new Schema(
   }
 );
 
+type Device = InferSchemaType<typeof DeviceSchema>;
+
 const DeviceModel =
   mongoose.models.Device || mongoose.model("Device", DeviceSchema);
 
 export default DeviceModel;
+export type { Device };
