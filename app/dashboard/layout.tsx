@@ -5,7 +5,7 @@ const DashboardLayout = ({ children }: Layout) => {
   return (
     <div>
       <Header />
-      {children}
+      <main className="mx-auto p-4 max-w-5xl">{children}</main>
     </div>
   );
 };
