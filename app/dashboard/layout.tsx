@@ -1,4 +1,4 @@
-import Header from "@/components/ui/dashboard/header";
+import Header from "@/components/dashboard/header";
 import { Layout } from "@/types";
 
 const DashboardLayout = ({ children }: Layout) => {

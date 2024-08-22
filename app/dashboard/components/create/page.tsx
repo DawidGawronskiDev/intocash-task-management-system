@@ -1,4 +1,4 @@
-import FormCreate from "@/components/ui/dashboard/components/form-create";
+import FormCreate from "@/components/dashboard/components/form-create";
 
 const ComponentsCreatePage = () => {
   return (
