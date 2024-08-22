@@ -1,5 +1,5 @@
 import { componentsWithSize, componentTypes, deviceTypes } from "@/lib/config";
-import mongoose, { Schema } from "mongoose";
+import mongoose, { InferSchemaType, Schema } from "mongoose";
 
 const ComponentSchema = new Schema({
   type: {
@@ -30,7 +30,10 @@ const ComponentSchema = new Schema({
   },
 });
 
+type Component = InferSchemaType<typeof ComponentSchema>;
+
 const ComponentModel =
   mongoose.models.Component || mongoose.model("Component", ComponentSchema);
 
 export default ComponentModel;
+export type { Component };
