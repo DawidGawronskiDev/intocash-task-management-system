@@ -1,8 +1,4 @@
-import {
-  componentTypes,
-  componentTypesWithSize,
-  deviceTypes,
-} from "@/lib/config";
+import { componentsWithSize, componentTypes, deviceTypes } from "@/lib/config";
 import mongoose, { Schema } from "mongoose";
 
 const ComponentSchema = new Schema({
@@ -14,13 +10,13 @@ const ComponentSchema = new Schema({
   size: {
     type: Number,
     required: function (this: any) {
-      return componentTypesWithSize.includes(this.type) === true;
+      return componentsWithSize.includes(this.type) === true;
     },
   },
   name: {
     type: String,
     required: function (this: any) {
-      return componentTypesWithSize.includes(this.type) !== true;
+      return componentsWithSize.includes(this.type) !== true;
     },
   },
   forDevice: {
