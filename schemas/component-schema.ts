@@ -1,3 +1,7 @@
+import { componentTypes, deviceTypes } from "@/lib/config";
+import { hasSize } from "@/lib/utils";
+import z from "zod";
+
 const ComponentSchema = z
   .object({
     type: z.enum(componentTypes as [string, ...string[]]),
