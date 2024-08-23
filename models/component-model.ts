@@ -1,5 +1,5 @@
 import { componentsWithSize, componentTypes, deviceTypes } from "@/lib/config";
-import mongoose, { InferSchemaType, Schema, Types } from "mongoose";
+import mongoose, { InferSchemaType, Schema } from "mongoose";
 
 const ComponentSchema = new Schema({
   type: {
@@ -31,7 +31,7 @@ const ComponentSchema = new Schema({
 });
 
 type Component = InferSchemaType<typeof ComponentSchema> & {
-  _id: Types.ObjectId;
+  _id: string;
 };
 
 const ComponentModel =

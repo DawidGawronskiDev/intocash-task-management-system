@@ -29,3 +29,5 @@ export const componentSizes = [
   "4096",
   "8192",
 ];
+
+export const operatingSystems = ["Windows 11 Home", "Windows 11 Pro"];

@@ -1,6 +1,6 @@
 import NavigationLink from "./navigation-link";
 
-const navigationLinks = ["components", "devices"];
+const navigationLinks = ["components", "devices", "tasks"];
 
 const Navigation = () => {
   return (

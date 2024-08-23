@@ -17,9 +17,7 @@ const DeviceSchema = new Schema(
       type: String,
       required: true,
     },
-    components: [
-      { type: mongoose.Types.ObjectId, required: false, ref: "Component" },
-    ],
+    components: [{ type: mongoose.Schema.Types.ObjectId, ref: "Component" }],
     quantity: {
       type: Number,
       required: true,
@@ -34,7 +32,9 @@ const DeviceSchema = new Schema(
   }
 );
 
-type Device = InferSchemaType<typeof DeviceSchema>;
+type Device = InferSchemaType<typeof DeviceSchema> & {
+  _id: string;
+};
 
 const DeviceModel =
   mongoose.models.Device || mongoose.model("Device", DeviceSchema);
