@@ -152,13 +152,9 @@ const SelectComponent = ({ index, onChange, data }: SelectComponentProps) => {
 
   const watchField = watch(`components.${index}`);
 
-  console.log(data);
-
   const filteredComponents = data.filter(
     (component) => component.type === watchField.type
   );
-
-  console.log(filteredComponents);
 
   if (filteredComponents.length === 0) {
     return <p className="text-destructive">No components available</p>;

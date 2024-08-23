@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import FormContent from "./form-create-content";
 import { Form } from "@/components/ui/form";
 import z from "zod";
+import axios from "axios";
 
 const FormCreate = () => {
   const methods = useForm({
@@ -22,10 +23,15 @@ const FormCreate = () => {
 
   const { watch, handleSubmit } = methods;
 
-  console.log(watch("components"));
+  const onSubmit = async (values: z.infer<typeof DeviceSchema>) => {
+    try {
+      console.log(values);
+      const response = await axios.post("/api/devices/", values);
 
-  const onSubmit = (values: z.infer<typeof DeviceSchema>) => {
-    console.log(values);
+      console.log(values);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
