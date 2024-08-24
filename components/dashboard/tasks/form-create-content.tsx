@@ -1,15 +1,11 @@
 "use client";
 
 import ButtonSubmit from "@/components/form/button-submit";
+import FormCheckbox from "@/components/form/form-checkbox";
 import FormInput from "@/components/form/form-input";
 import FormSelect from "@/components/form/form-select";
 import FormSelectComponets from "@/components/form/form-select-component";
-// device: "",
-//       components: [],
-//       os: "",
-//       drivers: false,
-//       quantity: 0,
-//   status: "",
+import { Checkbox } from "@/components/ui/checkbox";
 
 import {
   FormControl,
@@ -85,6 +81,9 @@ const FormContent = () => {
         placeholder="Operating System"
         items={operatingSystems}
       />
+      <FormCheckbox name="drivers" label="Drivers" />
+      <FormCheckbox name="office" label="Office" />
+      <FormCheckbox name="activation" label="Activation" />
       <FormInput name="quantity" label="Quantity" />
       <FormInput name="status" label="Status" placeholder="Status" />
       <ButtonSubmit isSubmitting={isSubmitting} content="Create Task" />

@@ -18,6 +18,14 @@ const TaskSchema = new Schema(
       type: Boolean,
       required: true,
     },
+    office: {
+      type: Boolean,
+      required: true,
+    },
+    activation: {
+      type: Boolean,
+      required: true,
+    },
     quantity: {
       type: Number,
       required: true,
