@@ -6,6 +6,7 @@ import FormContent from "./form-create-content";
 import z from "zod";
 import TaskSchema from "@/schemas/task-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 
 const FormCreate = () => {
   const methods = useForm({
@@ -24,8 +25,8 @@ const FormCreate = () => {
 
   const { handleSubmit } = methods;
 
-  const onSubmit = (values: z.infer<typeof TaskSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof TaskSchema>) => {
+    await axios.post("/api/tasks", values);
   };
 
   return (
