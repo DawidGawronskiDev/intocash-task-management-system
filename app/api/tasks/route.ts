@@ -2,6 +2,33 @@ import { dbConnect } from "@/lib/dbConnect";
 import TaskModel from "@/models/task-model";
 import TaskSchema from "@/schemas/task-schema";
 
+export const GET = async () => {
+  try {
+    await dbConnect();
+
+    const tasks = await TaskModel.find({})
+      .populate([{ path: "device" }, { path: "components" }])
+      .exec();
+
+    if (!tasks) {
+      return (
+        new Response(JSON.stringify({ message: "Failed to fetch components" })),
+        { status: 400 }
+      );
+    }
+
+    return new Response(
+      JSON.stringify({ message: "Tasks fetched successfully", data: tasks }),
+      { status: 200 }
+    );
+  } catch (err) {
+    console.log(err);
+    return new Response(JSON.stringify({ message: "Internal server error" }), {
+      status: 500,
+    });
+  }
+};
+
 export const POST = async (req: Request) => {
   const reqData = await req.json();
 
