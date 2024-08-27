@@ -8,7 +8,7 @@ export const GET = async (request: Request) => {
   try {
     await dbConnect();
 
-    const components = await ComponentModel.find({});
+    const components = await ComponentModel.find({}).sort({ createdAt: -1 });
 
     if (!components) {
       return new Response(

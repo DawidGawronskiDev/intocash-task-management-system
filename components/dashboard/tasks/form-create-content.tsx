@@ -21,7 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import useAxios from "@/hooks/useAxios";
-import { operatingSystems } from "@/lib/config";
+import { operatingSystems, taskStatuses } from "@/lib/config";
 import { Device } from "@/models/device-model";
 import { useFormContext } from "react-hook-form";
 
@@ -85,7 +85,12 @@ const FormContent = () => {
       <FormCheckbox name="office" label="Office" />
       <FormCheckbox name="activation" label="Activation" />
       <FormInput name="quantity" label="Quantity" />
-      <FormInput name="status" label="Status" placeholder="Status" />
+      <FormSelect
+        name="status"
+        label="Status"
+        placeholder="Status"
+        items={taskStatuses}
+      />
       <ButtonSubmit isSubmitting={isSubmitting} content="Create Task" />
     </>
   );

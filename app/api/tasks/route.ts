@@ -7,6 +7,7 @@ export const GET = async () => {
     await dbConnect();
 
     const tasks = await TaskModel.find({})
+      .sort({ createdAt: -1 })
       .populate([{ path: "device" }, { path: "components" }])
       .exec();
 

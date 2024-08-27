@@ -1,4 +1,4 @@
-import { operatingSystems } from "@/lib/config";
+import { operatingSystems, taskStatuses } from "@/lib/config";
 import z from "zod";
 
 const TaskSchema = z.object({
@@ -16,7 +16,7 @@ const TaskSchema = z.object({
   office: z.boolean(),
   activation: z.boolean(),
   quantity: z.coerce.number().min(1),
-  status: z.string().min(1),
+  status: z.enum([...taskStatuses] as [string, ...string[]]),
 });
 
 export default TaskSchema;

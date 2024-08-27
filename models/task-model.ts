@@ -1,3 +1,4 @@
+import { taskStatuses } from "@/lib/config";
 import mongoose, { Schema, InferSchemaType } from "mongoose";
 
 const TaskSchema = new Schema(
@@ -32,8 +33,8 @@ const TaskSchema = new Schema(
     },
     status: {
       type: String,
-      required: false,
-      default: "Not Started",
+      enum: taskStatuses,
+      required: true,
     },
   },
   {

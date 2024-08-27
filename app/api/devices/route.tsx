@@ -6,7 +6,7 @@ export const GET = async (request: Request) => {
   try {
     await dbConnect();
 
-    const components = await DeviceModel.find({});
+    const components = await DeviceModel.find({}).sort({ createdAt: -1 });
 
     if (!components) {
       return new Response(

@@ -31,3 +31,12 @@ export const componentSizes = [
 ];
 
 export const operatingSystems = ["Windows 11 Home", "Windows 11 Pro"];
+
+export const taskStatuses = [
+  "Not Started",
+  "Started",
+  "Cleaned",
+  "Packed",
+  "Sent",
+  "Completed",
+];

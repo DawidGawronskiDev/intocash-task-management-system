@@ -31,3 +31,11 @@ export type Component = ComponentWithSize | ComponentWithName;
 export type Layout = {
   children: ReactNode;
 };
+
+export type TaskStatus =
+  | "Not Started"
+  | "Started"
+  | "Cleaned"
+  | "Packed"
+  | "Sent"
+  | "Completed";
