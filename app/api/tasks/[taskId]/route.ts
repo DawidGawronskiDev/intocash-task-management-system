@@ -10,9 +10,10 @@ export const GET = async (
 
     await dbConnect();
 
-    const existingTask = await TaskModel.findOne({ _id: taskId }).populate(
-      "components"
-    );
+    const existingTask = await TaskModel.findOne({ _id: taskId }).populate([
+      "device",
+      "components",
+    ]);
 
     if (!existingTask) {
       return new Response(JSON.stringify({ message: "Task does not exists" }), {

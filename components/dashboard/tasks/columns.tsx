@@ -1,12 +1,21 @@
 "use client";
 
-import { taskStatuses } from "@/lib/config";
+import Status from "@/components/shared/status";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Component } from "@/models/component-model";
 import { Device } from "@/models/device-model";
 import { Task } from "@/models/task-model";
 import { TaskStatus } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { formatDistanceToNow } from "date-fns";
+import { Ellipsis, Eye } from "lucide-react";
+import Link from "next/link";
 
 type ResTask = Task & {
   device: Device;
@@ -36,19 +45,8 @@ export const columns: ColumnDef<ResTask>[] = [
     header: "Status",
     cell: ({ row }) => {
       const status: TaskStatus = row.getValue("status");
-      const statusIndex = taskStatuses.indexOf(status);
-      const opacity = 0.7;
 
-      return (
-        <div
-          style={{
-            backgroundColor: `hsla(${statusIndex * 30}deg,100%,50%,${opacity})`,
-          }}
-          className="rounded-full text-xs font-medium text-white grid place-content-center px-2 py-1"
-        >
-          {status}
-        </div>
-      );
+      return <Status status={status} />;
     },
   },
   {
@@ -58,6 +56,34 @@ export const columns: ColumnDef<ResTask>[] = [
       const createdAt: string = row.getValue("createdAt");
 
       return <div>{`${formatDistanceToNow(createdAt)} ago`}</div>;
+    },
+  },
+  {
+    id: "actions",
+    enableHiding: false,
+    cell: ({ row }) => {
+      const id = row.original._id;
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost">
+              <Ellipsis className="w-4 h-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem className="flex items-center gap-2">
+              <Link
+                href={"/dashboard/tasks/" + id}
+                className="flex items-center"
+              >
+                <Eye className="w-4 h-4 mr-2" />
+                <span>View</span>
+              </Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
     },
   },
 ];

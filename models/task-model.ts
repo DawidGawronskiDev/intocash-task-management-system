@@ -9,7 +9,11 @@ const TaskSchema = new Schema(
       required: true,
     },
     components: [
-      { type: mongoose.Types.ObjectId, ref: "Component", required: true },
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Component",
+        required: true,
+      },
     ],
     os: {
       type: String,
@@ -42,7 +46,9 @@ const TaskSchema = new Schema(
   }
 );
 
-type Task = InferSchemaType<typeof TaskSchema>;
+type Task = InferSchemaType<typeof TaskSchema> & {
+  _id: string;
+};
 
 const TaskModel = mongoose.models.Task || mongoose.model("Task", TaskSchema);
 
