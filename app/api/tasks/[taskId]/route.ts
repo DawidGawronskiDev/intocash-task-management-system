@@ -37,3 +37,40 @@ export const GET = async (
     });
   }
 };
+
+export const DELETE = async (
+  req: Request,
+  { params }: { params: { taskId: string } }
+) => {
+  try {
+    await dbConnect();
+
+    const { taskId } = params;
+
+    const filter = { _id: taskId };
+    const existingTask = await TaskModel.findOne(filter);
+
+    if (!existingTask) {
+      return new Response(
+        JSON.stringify({ message: "There is no task with that id" }),
+        {
+          status: 400,
+        }
+      );
+    }
+
+    await TaskModel.findByIdAndDelete(taskId);
+
+    return new Response(
+      JSON.stringify({ message: "Task deleted successfully" }),
+      {
+        status: 200,
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    return new Response(JSON.stringify({ message: "Internal server error" }), {
+      status: 500,
+    });
+  }
+};

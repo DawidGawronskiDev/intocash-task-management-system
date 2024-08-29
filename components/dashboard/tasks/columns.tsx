@@ -14,8 +14,10 @@ import { Task } from "@/models/task-model";
 import { TaskStatus } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { formatDistanceToNow } from "date-fns";
-import { Ellipsis, Eye } from "lucide-react";
+import { Ellipsis, Eye, Trash } from "lucide-react";
 import Link from "next/link";
+import DialogDelete from "./task-dialog-delete";
+import { Dialog } from "@/components/ui/dialog";
 
 type ResTask = Task & {
   device: Device;
@@ -80,6 +82,9 @@ export const columns: ColumnDef<ResTask>[] = [
                 <Eye className="w-4 h-4 mr-2" />
                 <span>View</span>
               </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+              <DialogDelete taskId={id} />
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
