@@ -1,6 +1,6 @@
 import { dbConnect } from "@/lib/dbConnect";
-import TaskModel from "@/models/task-model";
 import TaskSchema from "@/schemas/task-schema";
+import TaskModel from "@/models/task-model";
 
 export const GET = async () => {
   try {

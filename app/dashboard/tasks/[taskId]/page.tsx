@@ -1,5 +1,5 @@
+import InfoGrid from "@/components/info-grid";
 import Status from "@/components/shared/status";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Component } from "@/models/component-model";
 import { Device } from "@/models/device-model";
@@ -26,97 +26,46 @@ const TaskPage = async ({ params }: { params: { taskId: string } }) => {
         <Status status={task.status as TaskStatus} />
       </div>
 
-      <div className="grid gap-4">
-        <h2 className="text-2xl font-bold tracking-tight">
-          General Information
-        </h2>
-
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(224px,1fr))] gap-8">
-          <div className="grid">
-            <h3 className="text-xl font-bold tracking-tight">
-              {task.quantity}x
-            </h3>
-            <p className="opacity-50 text-base leading-none">Quantity</p>
-          </div>
-
-          <div className="grid">
-            <h3 className="text-xl font-bold tracking-tight">
-              {task.device.type}
-            </h3>
-            <p className="opacity-50 text-base leading-none">Device Type</p>
-          </div>
-
-          <div className="grid">
-            <h3 className="text-xl font-bold tracking-tight">
-              {task.device.brand}
-            </h3>
-            <p className="opacity-50 text-base leading-none">Device Brand</p>
-          </div>
-
-          <div className="grid">
-            <h3 className="text-xl font-bold tracking-tight">
-              {task.device.model}
-            </h3>
-            <p className="opacity-50 text-base leading-none">Device Model</p>
-          </div>
-        </div>
-      </div>
+      <InfoGrid
+        title="General Information"
+        items={[
+          { heading: `${task.quantity}x`, body: "Quantity" },
+          { heading: task.device.type, body: "Device Type" },
+          { heading: task.device.brand, body: "Device Brand" },
+          { heading: task.device.model, body: "Device Model" },
+        ]}
+      />
 
       <Separator />
 
-      <div className="grid gap-6">
-        <h2 className="text-2xl font-bold tracking-tight">Software</h2>
-
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(224px,1fr))] gap-8">
-          <div className="grid">
-            <h3 className="text-xl font-bold tracking-tight">{task.os}</h3>
-            <p className="opacity-50 text-base leading-none">
-              Operating System
-            </p>
-          </div>
-
-          <div className="grid">
-            <h3 className="text-xl font-bold tracking-tight">
-              {task.office ? "Required" : "Not Required"}
-            </h3>
-            <p className="opacity-50 text-base leading-none">Office</p>
-          </div>
-
-          <div className="grid">
-            <h3 className="text-xl font-bold tracking-tight">
-              {task.drivers ? "Required" : "Not Required"}
-            </h3>
-            <p className="opacity-50 text-base leading-none">Drivers</p>
-          </div>
-
-          <div className="grid">
-            <h3 className="text-xl font-bold tracking-tight">
-              {task.activation ? "Required" : "Not required"}
-            </h3>
-            <p className="opacity-50 text-base leading-none">Activation</p>
-          </div>
-        </div>
-      </div>
+      <InfoGrid
+        title="Software"
+        items={[
+          { heading: task.os, body: "Operating System" },
+          {
+            heading: task.office ? "Required" : "Not Required",
+            body: "Office",
+          },
+          {
+            heading: task.drivers ? "Required" : "Not Required",
+            body: "Drivers",
+          },
+          {
+            heading: task.activation ? "Required" : "Not required",
+            body: "Activation",
+          },
+        ]}
+      />
 
       <Separator />
 
-      <div className="grid gap-6">
-        <h2 className="text-2xl font-bold tracking-tight">Hardware</h2>
-
-        <ul className="grid grid-cols-[repeat(auto-fill,minmax(224px,1fr))] gap-8">
-          {task.components.map((component) => (
-            <li key={component._id}>
-              <div className="grid">
-                <h3 className="text-xl font-bold tracking-tight">
-                  {component.type}{" "}
-                  {component.size ? component.size + "GB" : component.name}
-                </h3>
-                <p className="opacity-50 text-base leading-none">Component</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <InfoGrid
+        title="Hardware"
+        items={task.components.map((component) => ({
+          heading: component.type,
+          body: component.size ? component.size + "GB" : component.name,
+        }))}
+      />
     </div>
   );
 };
