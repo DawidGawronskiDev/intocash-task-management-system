@@ -18,9 +18,7 @@ const FormDelete = ({ taskId }: FormDeleteProps) => {
 
   return (
     <form onSubmit={handleSubmit} className="p-0">
-      <DialogClose asChild>
-        <Button variant="destructive">Confirm</Button>
-      </DialogClose>
+      <Button variant="destructive">Confirm</Button>
     </form>
   );
 };
