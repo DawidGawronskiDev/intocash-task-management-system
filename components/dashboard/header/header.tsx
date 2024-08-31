@@ -8,13 +8,15 @@ const Header = async () => {
   const session = await getServerSession(options);
 
   return (
-    <header className="p-4 flex items-center justify-between">
-      <Navigation />
-      {session && (
-        <Button variant="secondary">
-          <Link href="/api/auth/signout?callbackUrl=/">Log Out</Link>
-        </Button>
-      )}
+    <header className="p-4">
+      <div className="mx-auto px-4 max-w-5xl w-full flex items-center justify-between">
+        <Navigation />
+        {session && (
+          <Button variant="secondary">
+            <Link href="/api/auth/signout?callbackUrl=/">Log Out</Link>
+          </Button>
+        )}
+      </div>
     </header>
   );
 };

@@ -3,13 +3,16 @@ export const brands = ["Lenovo", "DELL", "HP", "Mac", "Acer", "Asus", "Other"];
 export const deviceTypes = ["Desktop", "Laptop"];
 
 export const componentTypes = [
-  "RAM",
-  "SSD",
+  "Cable",
+  "Case",
+  "Extension card",
+  "Fan",
   "HDD",
-  "Processor",
   "Motherboard",
   "Power supply",
-  "Case",
+  "Processor",
+  "RAM",
+  "SSD",
 ];
 
 export const componentsWithSize = ["RAM", "SSD", "HDD"];

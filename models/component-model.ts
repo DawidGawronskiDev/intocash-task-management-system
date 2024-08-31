@@ -1,4 +1,4 @@
-import { componentsWithSize, componentTypes, deviceTypes } from "@/lib/config";
+import { componentTypes, deviceTypes } from "@/lib/config";
 import mongoose, { InferSchemaType, Schema } from "mongoose";
 
 const ComponentSchema = new Schema({
@@ -9,15 +9,11 @@ const ComponentSchema = new Schema({
   },
   size: {
     type: Number,
-    required: function (this: any) {
-      return componentsWithSize.includes(this.type) === true;
-    },
+    required: false,
   },
   name: {
     type: String,
-    required: function (this: any) {
-      return componentsWithSize.includes(this.type) !== true;
-    },
+    required: false,
   },
   forDevice: {
     type: String,

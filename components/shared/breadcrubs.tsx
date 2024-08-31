@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -5,12 +7,16 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import clsx from "clsx";
+import { usePathname } from "next/navigation";
 
 type Breadcrubs = {
   items: string[];
 };
 
 const Breadcrubs = ({ items }: Breadcrubs) => {
+  const pathname = usePathname();
+
   return (
     <Breadcrumb className="mb-4">
       <BreadcrumbList>
@@ -20,7 +26,12 @@ const Breadcrubs = ({ items }: Breadcrubs) => {
           return (
             <>
               <BreadcrumbItem key={index}>
-                <BreadcrumbLink href={link} className="capitalize">
+                <BreadcrumbLink
+                  href={link}
+                  className={clsx("capitalize", {
+                    "font-semibold": pathname === link,
+                  })}
+                >
                   {item}
                 </BreadcrumbLink>
               </BreadcrumbItem>

@@ -18,6 +18,7 @@ import { Ellipsis, Eye, Trash } from "lucide-react";
 import Link from "next/link";
 import DialogDelete from "./task-dialog-delete";
 import { Dialog } from "@/components/ui/dialog";
+import ColumnActions from "./column-actions";
 
 type ResTask = Task & {
   device: Device;
@@ -67,27 +68,9 @@ export const columns: ColumnDef<ResTask>[] = [
       const id = row.original._id;
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost">
-              <Ellipsis className="w-4 h-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem className="flex items-center gap-2">
-              <Link
-                href={"/dashboard/tasks/" + id}
-                className="flex items-center"
-              >
-                <Eye className="w-4 h-4 mr-2" />
-                <span>View</span>
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-              <DialogDelete taskId={id} />
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="text-right">
+          <ColumnActions id={id} />
+        </div>
       );
     },
   },

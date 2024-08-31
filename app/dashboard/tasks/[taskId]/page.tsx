@@ -7,7 +7,10 @@ import { Task } from "@/models/task-model";
 import { TaskStatus } from "@/types";
 import axios from "axios";
 
-type ReqTask = Task & { device: Device; components: Component[] };
+type ReqTask = Omit<Task, "device" | "components"> & {
+  device: Device;
+  components: Component[];
+};
 
 const TaskPage = async ({ params }: { params: { taskId: string } }) => {
   const { taskId } = params;
@@ -63,7 +66,7 @@ const TaskPage = async ({ params }: { params: { taskId: string } }) => {
         title="Hardware"
         items={task.components.map((component) => ({
           heading: component.type,
-          body: component.size ? component.size + "GB" : component.name,
+          body: `${component.size ? component.size + "GB" : component.name}`,
         }))}
       />
     </div>
