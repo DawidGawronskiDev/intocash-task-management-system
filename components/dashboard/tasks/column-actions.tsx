@@ -17,7 +17,7 @@ const ColumnActions = ({ id }: ColumnActionsProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost">
+        <Button variant="ghost" className="p-0 h-min">
           <Ellipsis className="w-4 h-4" />
         </Button>
       </DropdownMenuTrigger>

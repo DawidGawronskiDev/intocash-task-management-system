@@ -25,9 +25,11 @@ export const columns: ColumnDef<Component>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
+      const id = row.original._id;
+
       return (
         <div className="text-right">
-          <ColumnActions />
+          <ColumnActions id={id} />
         </div>
       );
     },

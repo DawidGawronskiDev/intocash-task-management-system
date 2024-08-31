@@ -31,7 +31,7 @@ const FormContent = () => {
         items={deviceTypes}
       />
       <FormInput name="quantity" label="Quantity*" placeholder="Quantity" />
-      <ButtonSubmit isSubmitting={isSubmitting} content="Create Component" />
+      <ButtonSubmit isSubmitting={isSubmitting} content="Update Component" />
     </>
   );
 };

@@ -1,23 +1,29 @@
 "use client";
 
 import { Form } from "@/components/ui/form";
-
+import { Component } from "@/models/component-model";
 import ComponentSchema from "@/schemas/component-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import z from "zod";
 import FormContent from "./form-content";
 import axios from "axios";
+import z from "zod";
 
-const FormCreate = () => {
+const FormUpdate = ({
+  component,
+  componentId,
+}: {
+  component: Component;
+  componentId: string;
+}) => {
   const methods = useForm({
     resolver: zodResolver(ComponentSchema),
     defaultValues: {
-      type: "",
-      name: "",
-      size: 0,
-      forDevice: "",
-      quantity: 0,
+      type: component.type,
+      name: component.name as string | undefined,
+      size: component.size?.toString() as number | undefined,
+      forDevice: component.forDevice,
+      quantity: component.quantity,
     },
   });
 
@@ -25,9 +31,7 @@ const FormCreate = () => {
 
   const onSubmit = async (values: z.infer<typeof ComponentSchema>) => {
     try {
-      const response = await axios.post("/api/components/", values);
-
-      console.log(response.data);
+      await axios.put("/api/components/" + componentId, values);
     } catch (error) {
       console.error(error);
     }
@@ -42,4 +46,4 @@ const FormCreate = () => {
   );
 };
 
-export default FormCreate;
+export default FormUpdate;
