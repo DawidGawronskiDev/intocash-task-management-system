@@ -1,5 +1,5 @@
 import InfoGrid from "@/components/info-grid";
-import Status from "@/components/shared/status";
+import Status from "@/components/shared/task-status";
 import { Separator } from "@/components/ui/separator";
 import { Component } from "@/models/component-model";
 import { Device } from "@/models/device-model";

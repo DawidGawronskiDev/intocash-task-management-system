@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
+import { Fragment } from "react";
 
 type Breadcrubs = {
   items: string[];
@@ -24,8 +25,8 @@ const Breadcrubs = ({ items }: Breadcrubs) => {
           let link = "/" + items.slice(0, index + 1).join("/");
 
           return (
-            <>
-              <BreadcrumbItem key={index}>
+            <Fragment key={index}>
+              <BreadcrumbItem>
                 <BreadcrumbLink
                   href={link}
                   className={clsx("capitalize", {
@@ -35,8 +36,8 @@ const Breadcrubs = ({ items }: Breadcrubs) => {
                   {item}
                 </BreadcrumbLink>
               </BreadcrumbItem>
-              {index < items.length - 1 && <BreadcrumbSeparator key={index} />}
-            </>
+              {index < items.length - 1 && <BreadcrumbSeparator />}
+            </Fragment>
           );
         })}
       </BreadcrumbList>

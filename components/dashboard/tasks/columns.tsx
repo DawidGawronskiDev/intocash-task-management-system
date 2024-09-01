@@ -1,24 +1,13 @@
 "use client";
 
-import Status from "@/components/shared/status";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Component } from "@/models/component-model";
 import { Device } from "@/models/device-model";
 import { Task } from "@/models/task-model";
 import { TaskStatus } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { formatDistanceToNow } from "date-fns";
-import { Ellipsis, Eye, Trash } from "lucide-react";
-import Link from "next/link";
-import DialogDelete from "./task-dialog-delete";
-import { Dialog } from "@/components/ui/dialog";
 import ColumnActions from "./column-actions";
+import Status from "@/components/shared/task-status";
 
 type ResTask = Task & {
   device: Device;

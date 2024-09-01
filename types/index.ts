@@ -39,3 +39,7 @@ export type TaskStatus =
   | "Packed"
   | "Sent"
   | "Completed";
+
+export type KeyFor = "Windows" | "Office";
+
+export type KeyStatus = "Unused" | "Used" | "On hold" | "Not working";

@@ -43,3 +43,7 @@ export const taskStatuses = [
   "Sent",
   "Completed",
 ];
+
+export const keyFor = ["Windows", "Office"];
+
+export const keyStatues = ["Unused", "Used", "On hold", "Not working"];
