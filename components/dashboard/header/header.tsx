@@ -8,7 +8,7 @@ const Header = async () => {
   const session = await getServerSession(options);
 
   return (
-    <header className="p-4">
+    <header className="p-4 border">
       <div className="mx-auto px-4 max-w-5xl w-full flex items-center justify-between">
         <Navigation />
         {session && (

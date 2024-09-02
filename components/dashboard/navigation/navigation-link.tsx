@@ -1,20 +1,25 @@
+"use client";
+
 import clsx from "clsx";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type NavigationLinkProps = {
-  link: string;
+  link: { name: string; href: string };
 };
 
 const NavigationLink = ({ link }: NavigationLinkProps) => {
+  const pathname = usePathname();
+
   return (
     <li>
       <Link
-        href={"/dashboard/" + link}
+        href={link.href}
         className={clsx("capitalize", {
-          "font-bold": link.startsWith("/dashboard/" + link),
+          "font-semibold": pathname.startsWith(link.href),
         })}
       >
-        {link}
+        {link.name}
       </Link>
     </li>
   );
