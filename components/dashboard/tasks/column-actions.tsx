@@ -23,7 +23,7 @@ const ColumnActions = ({ id }: ColumnActionsProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem className="flex items-center gap-2">
-          <Link href={"/dashboard/tasks/" + id} className="flex items-center">
+          <Link href={"/tasks/" + id} className="flex items-center">
             <Eye className="w-4 h-4 mr-2" />
             <span>View</span>
           </Link>

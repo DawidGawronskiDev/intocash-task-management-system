@@ -49,3 +49,18 @@ export const keyFor = ["Windows", "Office"];
 export const keyStatues = ["Unused", "Used", "On hold", "Not working"];
 
 export const deviceConditions = ["New", "Used", "Retured"];
+
+export const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];

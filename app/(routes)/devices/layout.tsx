@@ -4,7 +4,7 @@ import { type Layout } from "@/types";
 const DevicesLayout = ({ children }: Layout) => {
   return (
     <div>
-      <Breadcrubs items={["dashboard", "devices", "create"]} />
+      <Breadcrubs items={["devices", "create"]} />
       {children}
     </div>
   );

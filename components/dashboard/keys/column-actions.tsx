@@ -18,10 +18,7 @@ const ColumnActions = ({ id }: { id: string }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>
-          <Link
-            href={"/dashboard/keys/" + id + "/update"}
-            className="flex items-center"
-          >
+          <Link href={"/keys/" + id + "/update"} className="flex items-center">
             <RefreshCcw className="w-4 h-4 mr-2" />
             <p>Update</p>
           </Link>

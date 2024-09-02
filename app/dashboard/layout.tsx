@@ -1,12 +1,22 @@
 import Header from "@/components/dashboard/header/header";
 import "@/app/globals.css";
-import { Layout } from "@/types";
+import { ReactNode } from "react";
 
-const DashboardLayout = ({ children }: Layout) => {
+const DashboardLayout = ({
+  children,
+  tasks,
+}: {
+  children: ReactNode;
+  tasks: ReactNode;
+}) => {
   return (
     <div>
       <Header />
-      <main className="mx-auto p-4 max-w-5xl">{children}</main>
+      <main className="mx-auto p-4 max-w-5xl">
+        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+        {tasks}
+        {children}
+      </main>
     </div>
   );
 };

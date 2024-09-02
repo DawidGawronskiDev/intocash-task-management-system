@@ -23,7 +23,7 @@ const ColumnActions = ({ id }: ColumnActionsProps) => {
       <DropdownMenuContent>
         <DropdownMenuItem>
           <Link
-            href={"/dashboard/components/" + id + "/update"}
+            href={"/components/" + id + "/update"}
             className="flex items-center"
           >
             <RefreshCcw className="w-4 h-4 mr-2" /> Update

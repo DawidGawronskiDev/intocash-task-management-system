@@ -1,13 +1,13 @@
 import Breadcrubs from "@/components/shared/breadcrubs";
 import { Layout } from "@/types";
 
-const KeysLayout = ({ children }: Layout) => {
+const ComponentsLayout = ({ children }: Layout) => {
   return (
     <div>
-      <Breadcrubs items={["dashboard", "keys", "create"]} />
+      <Breadcrubs items={["components", "create"]} />
       {children}
     </div>
   );
 };
 
-export default KeysLayout;
+export default ComponentsLayout;

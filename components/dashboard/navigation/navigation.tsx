@@ -2,10 +2,10 @@ import NavigationLink from "./navigation-link";
 
 const navigationLinks = [
   { name: "dashboard", href: "/dashboard" },
-  { name: "components", href: "/dashboard/components" },
-  { name: "devices", href: "/dashboard/devices" },
-  { name: "tasks", href: "/dashboard/tasks" },
-  { name: "keys", href: "/dashboard/keys" },
+  { name: "components", href: "/components" },
+  { name: "devices", href: "/devices" },
+  { name: "tasks", href: "/tasks" },
+  { name: "keys", href: "/keys" },
 ];
 
 const Navigation = () => {
