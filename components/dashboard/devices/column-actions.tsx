@@ -5,7 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Ellipsis, Eye } from "lucide-react";
+import { Ellipsis, Eye, RefreshCcw } from "lucide-react";
 import Link from "next/link";
 
 type ColumnActionProps = {
@@ -27,6 +27,14 @@ const ColumnAction = ({ id }: ColumnActionProps) => {
             className="flex items-center gap-2"
           >
             <Eye className="w-4 h-4" /> View
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link
+            href={"/dashboard/devices/" + id + "/update"}
+            className="flex items-center gap-2"
+          >
+            <RefreshCcw className="w-4 h-4" /> Update
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>

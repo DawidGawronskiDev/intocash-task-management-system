@@ -1,4 +1,4 @@
-import { brands, deviceTypes } from "@/lib/config";
+import { brands, deviceConditions, deviceTypes } from "@/lib/config";
 import mongoose, { Schema, InferSchemaType } from "mongoose";
 
 const DeviceSchema = new Schema(
@@ -20,6 +20,27 @@ const DeviceSchema = new Schema(
     components: [{ type: mongoose.Schema.Types.ObjectId, ref: "Component" }],
     quantity: {
       type: Number,
+      required: true,
+    },
+    os: {
+      type: String,
+      required: true,
+    },
+    drivers: {
+      type: Boolean,
+      required: true,
+    },
+    office: {
+      type: Boolean,
+      required: true,
+    },
+    activation: {
+      type: Boolean,
+      required: true,
+    },
+    condition: {
+      type: String,
+      enum: deviceConditions,
       required: true,
     },
     shelf: {

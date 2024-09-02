@@ -43,3 +43,5 @@ export type TaskStatus =
 export type KeyFor = "Windows" | "Office";
 
 export type KeyStatus = "Unused" | "Used" | "On hold" | "Not working";
+
+export type DeviceCondition = "New" | "Used" | "Retured";

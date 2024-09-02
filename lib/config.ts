@@ -47,3 +47,5 @@ export const taskStatuses = [
 export const keyFor = ["Windows", "Office"];
 
 export const keyStatues = ["Unused", "Used", "On hold", "Not working"];
+
+export const deviceConditions = ["New", "Used", "Retured"];

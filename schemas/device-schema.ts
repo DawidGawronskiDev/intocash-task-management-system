@@ -1,4 +1,9 @@
-import { brands, deviceTypes } from "@/lib/config";
+import {
+  brands,
+  deviceConditions,
+  deviceTypes,
+  operatingSystems,
+} from "@/lib/config";
 import z from "zod";
 
 const DeviceSchema = z.object({
@@ -13,6 +18,11 @@ const DeviceSchema = z.object({
       })
     )
     .optional(),
+  os: z.enum([...operatingSystems] as [string, ...string[]]),
+  drivers: z.boolean(),
+  office: z.boolean(),
+  activation: z.boolean(),
+  condition: z.enum([...deviceConditions] as [string, ...string[]]),
   quantity: z.coerce.number().min(1),
   shelf: z.string().optional(),
 });

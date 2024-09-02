@@ -29,7 +29,26 @@ const Page = async ({ params }: PageProps) => {
           { heading: `${device.quantity}x`, body: "Quantity" },
           { heading: device.brand, body: "Brand" },
           { heading: device.model, body: "Model" },
+          { heading: device.condition, body: "Condition" },
           { heading: device.shelf || "", body: "shelf" },
+        ]}
+      />
+      <InfoGrid
+        title="Software"
+        items={[
+          { heading: device.os, body: "Operating System" },
+          {
+            heading: device.drivers ? "Installed" : "Not installed",
+            body: "Drivers",
+          },
+          {
+            heading: device.office ? "Installed" : "Not installed",
+            body: "Office",
+          },
+          {
+            heading: device.activation ? "Activated" : "Not activated",
+            body: "Activation",
+          },
         ]}
       />
       <InfoGrid
