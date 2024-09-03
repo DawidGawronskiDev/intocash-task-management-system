@@ -12,18 +12,13 @@ import { Task } from "@/models/task-model";
 import { months } from "@/lib/config";
 import {
   collectTasksByMonth,
+  collectThisMonthItems,
   getThisMonthItems,
   getThisYearItems,
 } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-
-const chartConfig = {
-  tasksCompleted: {
-    label: "Tasks Completed",
-    color: "#2563eb",
-  },
-} satisfies ChartConfig;
+import { lastDayOfMonth, format } from "date-fns";
 
 type DisplayType = "yearly" | "montly" | "weekly";
 
@@ -33,7 +28,10 @@ const TasksChart = ({ tasks }: { tasks: Task[] }) => {
   const handleDisplayType = (value: DisplayType) => {
     setDisplayType(value);
   };
+
   let chartData: any;
+  let chartConfig: any;
+  let dataKey: any;
 
   switch (displayType) {
     case "yearly":
@@ -44,13 +42,40 @@ const TasksChart = ({ tasks }: { tasks: Task[] }) => {
           Array.from({ length: 12 }, (_, index) => ({ month: index, tasks: 0 }))
         );
 
+        chartConfig = {
+          tasks: {
+            label: "Tasks",
+            color: "#2563eb",
+          },
+        } satisfies ChartConfig;
+
         chartData = collectedTasks
           .sort((a, b) => a.month - b.month)
           .map((item) => ({ ...item, month: months[item.month] }));
+
+        dataKey = "month";
       }
       break;
     case "montly": {
       const filteredTasks = getThisMonthItems<Task>(tasks);
+      const collectedTasks = collectThisMonthItems(
+        filteredTasks,
+        Array.from(
+          { length: Number(format(lastDayOfMonth(new Date()), "d")) },
+          (_, index) => ({ day: index, tasks: 0 })
+        )
+      );
+
+      chartConfig = {
+        tasks: {
+          label: "Tasks",
+          color: "#2563eb",
+        },
+      } satisfies ChartConfig;
+
+      chartData = collectedTasks.sort((a, b) => a.day - b.day);
+
+      dataKey = "day";
     }
   }
 
@@ -68,11 +93,21 @@ const TasksChart = ({ tasks }: { tasks: Task[] }) => {
       <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
         <BarChart accessibilityLayer data={chartData}>
           <XAxis
-            dataKey="month"
+            dataKey={dataKey}
             tickLine={false}
             tickMargin={10}
             axisLine={false}
-            tickFormatter={(value: string) => value.slice(0, 3)}
+            tickFormatter={(value: string | number) => {
+              if (typeof value === "number") {
+                return value.toString();
+              }
+
+              if (typeof value === "string") {
+                return value.slice(0, 3);
+              }
+
+              return "";
+            }}
           />
           <ChartTooltip content={<ChartTooltipContent />} />
           <CartesianGrid vertical={false} />

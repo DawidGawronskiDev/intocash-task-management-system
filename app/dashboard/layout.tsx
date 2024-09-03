@@ -12,7 +12,7 @@ const DashboardLayout = ({
   return (
     <div>
       <Header />
-      <main className="mx-auto p-4 max-w-5xl">
+      <main className="mx-auto p-4 max-w-5xl grid">
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
         {tasks}
         {children}
