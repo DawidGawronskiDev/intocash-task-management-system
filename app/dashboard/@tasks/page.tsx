@@ -1,5 +1,5 @@
 import TasksChart from "@/components/dashboard/tasks/tasks-chart";
-import TaskModel, { Task } from "@/models/task-model";
+import TaskModel from "@/models/task-model";
 import { differenceInDays } from "date-fns";
 
 const Page = async () => {
@@ -23,7 +23,7 @@ const Page = async () => {
         <div className="border p-4 rounded-2xl">
           <div>
             <h3 className="tracking-tight text-sm font-medium">
-              Today's Tasks
+              Today&apos;s Tasks
             </h3>
             <div className="text-2xl font-bold">{todaysTask.length}</div>
           </div>
@@ -41,7 +41,7 @@ const Page = async () => {
         <div className="border p-4 rounded-2xl">
           <div>
             <h3 className="tracking-tight text-sm font-medium">
-              Today's uncompleted tasks
+              Today&apos;s uncompleted tasks
             </h3>
             <div className="text-2xl font-bold">
               {tasksUncompletedToday.length}

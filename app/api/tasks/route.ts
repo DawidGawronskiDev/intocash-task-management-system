@@ -2,7 +2,7 @@ import { dbConnect } from "@/lib/dbConnect";
 import TaskSchema from "@/schemas/task-schema";
 import TaskModel from "@/models/task-model";
 
-export const GET = async () => {
+export const GET = async (req: Request) => {
   try {
     await dbConnect();
 
@@ -12,8 +12,8 @@ export const GET = async () => {
       .exec();
 
     if (!tasks) {
-      return (
-        new Response(JSON.stringify({ message: "Failed to fetch components" })),
+      return new Response(
+        JSON.stringify({ message: "Failed to fetch components" }),
         { status: 400 }
       );
     }

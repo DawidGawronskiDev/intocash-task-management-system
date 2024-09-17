@@ -28,8 +28,8 @@ const DialogDelete = ({ taskId }: DialogDeleteProps) => {
           <DialogHeader>
             <DialogTitle className="text-destructive">Delete task</DialogTitle>
             <DialogDescription>
-              This action canno't be undone. Are you sure you want to delete
-              this task?
+              This action canno&apos;t be undone. Are you sure you want to
+              delete this task?
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

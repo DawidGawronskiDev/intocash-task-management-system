@@ -1,7 +1,7 @@
 import { dbConnect } from "@/lib/dbConnect";
 import PeopleModel, { Person } from "@/models/people-model";
 import GoogleProvider from "next-auth/providers/google";
-import { Account, Profile } from "next-auth";
+import { Account, Profile, User } from "next-auth";
 
 const options = {
   providers: [
@@ -11,15 +11,23 @@ const options = {
     }),
   ],
   callbacks: {
-    async signIn({ account, profile }: { account: Account; profile: Profile }) {
-      if (account.provider === "google") {
+    async signIn({
+      user,
+      account,
+      profile,
+    }: {
+      user: User;
+      account: Account | null;
+      profile?: Profile;
+    }) {
+      if (account && account.provider === "google" && profile) {
         await dbConnect();
         const users: Person[] = await PeopleModel.find({});
         console.log(users, account, profile);
 
         return users.some((user) => user.email === profile.email);
       }
-      return true;
+      return false; // or return true if you want to allow access even without Google
     },
   },
   secret: process.env.NEXTAUTH_SECRET!,
