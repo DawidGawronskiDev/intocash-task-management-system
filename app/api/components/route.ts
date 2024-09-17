@@ -3,12 +3,25 @@ import { dbConnect } from "@/lib/dbConnect";
 import ComponentModel from "@/models/component-model";
 import ComponentSchema from "@/schemas/component-schema";
 import mongoose from "mongoose";
+import { getServerSession } from "next-auth";
+import options from "../auth/[...nextauth]/options";
 
 export const GET = async (request: Request) => {
+  const session = await getServerSession(options);
+
+  if (!session) {
+    console.log("Not authenticated");
+    return new Response(JSON.stringify({ message: "User not authenticated" }), {
+      status: 400,
+    });
+  }
+
   try {
     await dbConnect();
 
     const components = await ComponentModel.find({}).sort({ createdAt: -1 });
+
+    console.log(components);
 
     if (!components) {
       return new Response(

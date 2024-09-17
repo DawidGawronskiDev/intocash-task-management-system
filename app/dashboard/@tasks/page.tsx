@@ -1,14 +1,9 @@
 import TasksChart from "@/components/dashboard/tasks/tasks-chart";
-import { Task } from "@/models/task-model";
-import axios from "axios";
+import TaskModel, { Task } from "@/models/task-model";
 import { differenceInDays } from "date-fns";
 
 const Page = async () => {
-  const {
-    data: { data },
-  } = await axios.get(process.env.NEXT_PUBLIC_BASE_URL! + "/api/tasks");
-
-  const tasks: Task[] = data;
+  const tasks = await TaskModel.find({});
 
   const todaysTask = tasks.filter(
     (task) => differenceInDays(new Date(), task.createdAt) === 0

@@ -87,9 +87,9 @@ const TasksChart = ({ tasks }: { tasks: Task[] }) => {
       <Button type="button" onClick={() => handleDisplayType("montly")}>
         Montly
       </Button>
-      <Button type="button" onClick={() => handleDisplayType("weekly")}>
+      {/* <Button type="button" onClick={() => handleDisplayType("weekly")}>
         Weekly
-      </Button>
+      </Button> */}
       <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
         <BarChart accessibilityLayer data={chartData}>
           <XAxis

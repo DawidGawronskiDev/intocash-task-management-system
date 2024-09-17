@@ -1,13 +1,8 @@
 import FormUpdate from "@/components/dashboard/keys/form-update";
-import axios from "axios";
+import KeyModel from "@/models/key-model";
 
 const Page = async ({ params }: { params: { keyId: string } }) => {
-  const { keyId } = params;
-  const {
-    data: { data: key },
-  } = await axios.get(process.env.NEXT_PUBLIC_BASE_URL! + "/api/keys/" + keyId);
-
-  console.log(key);
+  const key = await KeyModel.findOne({ _id: params.keyId });
 
   return (
     <div>

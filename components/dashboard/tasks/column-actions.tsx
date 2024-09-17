@@ -5,7 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Ellipsis, Eye } from "lucide-react";
+import { Ellipsis, Eye, RefreshCcw } from "lucide-react";
 import Link from "next/link";
 import DialogDelete from "./task-dialog-delete";
 
@@ -26,6 +26,12 @@ const ColumnActions = ({ id }: ColumnActionsProps) => {
           <Link href={"/tasks/" + id} className="flex items-center">
             <Eye className="w-4 h-4 mr-2" />
             <span>View</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem className="flex items-center gap-2">
+          <Link href={"/tasks/" + id + "/update"} className="flex items-center">
+            <RefreshCcw className="w-4 h-4 mr-2" />
+            <span>Update</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={(e) => e.preventDefault()}>

@@ -12,7 +12,7 @@ const Status = ({ status }: StatusProps) => {
   return (
     <div
       style={{
-        backgroundColor: `hsla(${statusIndex * 30}deg,100%,50%,${opacity})`,
+        backgroundColor: `hsla(${statusIndex * 30}deg,50%,50%,${opacity})`,
       }}
       className="rounded-full lg:w-auto lg:aspect-auto text-xs font-medium text-white grid place-content-center lg:px-2 lg:py-1 w-4 aspect-square"
     >

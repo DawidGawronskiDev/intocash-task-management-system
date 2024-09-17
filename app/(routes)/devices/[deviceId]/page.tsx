@@ -1,24 +1,15 @@
 import InfoGrid from "@/components/info-grid";
 import { Component } from "@/models/component-model";
-import { Device } from "@/models/device-model";
-import axios from "axios";
+import DeviceModel, { Device } from "@/models/device-model";
 
 type PageProps = {
   params: { deviceId: string };
 };
 
-type ReqDevice = Omit<Device, "components"> & {
-  components: Component[];
-};
-
 const Page = async ({ params }: PageProps) => {
-  const { deviceId } = params;
-
-  const res = await axios.get(
-    process.env.NEXT_PUBLIC_BASE_URL! + "/api/devices/" + deviceId
+  const device = await DeviceModel.findOne({ _id: params.deviceId }).populate(
+    "components"
   );
-
-  const device: ReqDevice = res.data.data;
 
   return (
     <div className="grid gap-16">
@@ -53,7 +44,7 @@ const Page = async ({ params }: PageProps) => {
       />
       <InfoGrid
         title="Components"
-        items={device.components.map((component) => ({
+        items={device.components.map((component: Component) => ({
           heading: `${component.size && component.size + "GB"} ${
             component.name ? component.name : ""
           }`,

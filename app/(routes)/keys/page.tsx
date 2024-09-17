@@ -1,15 +1,14 @@
 import { columns } from "@/components/dashboard/keys/columns";
 import { DataTable } from "@/components/dashboard/keys/data-table";
+import KeyModel from "@/models/key-model";
 import axios from "axios";
 
 const Page = async () => {
-  const {
-    data: { data: keys },
-  } = await axios.get(process.env.NEXT_PUBLIC_BASE_URL! + "/api/keys");
+  const allKeys = await KeyModel.find({}).sort({ createdAt: -1 });
 
   return (
     <div>
-      <DataTable columns={columns} data={keys} />
+      <DataTable columns={columns} data={allKeys} />
     </div>
   );
 };

@@ -1,18 +1,12 @@
 import FormUpdate from "@/components/dashboard/devices/form-update";
-import axios from "axios";
+import DeviceModel from "@/models/device-model";
 
 const Page = async ({ params }: { params: { deviceId: string } }) => {
-  const { deviceId } = params;
-
-  const {
-    data: { data: device },
-  } = await axios.get(
-    process.env.NEXT_PUBLIC_BASE_URL! + "/api/devices/" + deviceId
-  );
+  const device = await DeviceModel.findOne({ _id: params.deviceId });
 
   return (
     <div>
-      <FormUpdate device={device} deviceId={deviceId} />
+      <FormUpdate device={device} deviceId={params.deviceId} />
     </div>
   );
 };

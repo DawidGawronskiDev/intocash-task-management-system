@@ -1,13 +1,13 @@
-import Table from "@/components/dashboard/devices/table";
-import { Suspense } from "react";
-import Loading from "./loading";
+import { DataTable } from "@/components/dashboard/devices/data-table";
+import { columns } from "@/components/dashboard/devices/columns";
+import DeviceModel from "@/models/device-model";
 
-const DevicesPage = () => {
+const DevicesPage = async () => {
+  const devices = await DeviceModel.find({}).sort({ createdAt: -1 });
+
   return (
     <div>
-      <Suspense fallback={<Loading />}>
-        <Table />
-      </Suspense>
+      <DataTable columns={columns} data={devices} />
     </div>
   );
 };
