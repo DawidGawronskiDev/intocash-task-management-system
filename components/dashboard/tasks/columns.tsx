@@ -9,12 +9,9 @@ import { formatDistanceToNow } from "date-fns";
 import ColumnActions from "./column-actions";
 import Status from "@/components/shared/task-status";
 
-type ResTask = Task & {
-  device: Device;
-  components: Component[];
-};
-
-export const columns: ColumnDef<ResTask>[] = [
+export const columns: ColumnDef<
+  Omit<Task, "components"> & { components: Component[] }
+>[] = [
   {
     accessorKey: "device",
     header: "Device",
