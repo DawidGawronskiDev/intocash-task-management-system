@@ -1,11 +1,9 @@
 import FormCreate from "@/components/dashboard/components/form-create";
 
-const ComponentsCreatePage = () => {
+export default function ComponentsCreatePage() {
   return (
     <div>
       <FormCreate />
     </div>
   );
-};
-
-export default ComponentsCreatePage;
+}

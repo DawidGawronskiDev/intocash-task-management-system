@@ -1,21 +1,13 @@
 import { columns } from "@/components/dashboard/tasks/columns";
 import { DataTable } from "@/components/dashboard/tasks/data-table";
-import { Component } from "@/models/component-model";
-import TaskModel, { Task } from "@/models/task-model";
+import { getTasks } from "@/lib/http";
 
-const TasksPage = async () => {
-  const allTasks: Array<
-    Omit<Task, "components"> & { components: Component[] }
-  > = await TaskModel.find({})
-    .sort({ createdAt: -1 })
-    .populate("device")
-    .lean();
+export default async function TasksPage() {
+  const allTasks = await getTasks();
 
   return (
     <div>
       <DataTable columns={columns} data={allTasks} />
     </div>
   );
-};
-
-export default TasksPage;
+}

@@ -1,12 +1,10 @@
 import FormCreate from "@/components/dashboard/devices/form-create";
 import React from "react";
 
-const DevicesCreatePage = () => {
+export default function DevicesCreatePage() {
   return (
     <div>
       <FormCreate />
     </div>
   );
-};
-
-export default DevicesCreatePage;
+}

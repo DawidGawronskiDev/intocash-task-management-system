@@ -1,13 +1,18 @@
 import FormUpdate from "@/components/dashboard/devices/form-update";
-import DeviceModel from "@/models/device-model";
+import { getDevice } from "@/lib/http";
 
-const Page = async ({ params }: { params: { deviceId: string } }) => {
-  const device = await DeviceModel.findOne({ _id: params.deviceId });
+type PageProps = {
+  params: { deviceId: string };
+};
+
+export default async function ComponentUpdatePage({ params }: PageProps) {
+  const device = await getDevice(params.deviceId);
+
+  if (!device) return <p className="text-destructive">Failed to find device</p>;
 
   return (
     <div>
       <FormUpdate device={device} deviceId={params.deviceId} />
     </div>
   );
-};
-export default Page;
+}

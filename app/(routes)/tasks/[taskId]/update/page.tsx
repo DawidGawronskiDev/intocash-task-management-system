@@ -3,7 +3,11 @@ import { dbConnect } from "@/lib/dbConnect";
 import { Component } from "@/models/component-model";
 import TaskModel, { Task } from "@/models/task-model";
 
-const Page = async ({ params }: { params: { taskId: string } }) => {
+type PageProps = {
+  params: { taskId: string };
+};
+
+export default async function KeyUpdatePage({ params }: PageProps) {
   await dbConnect();
   const task: (Omit<Task, "components"> & { components: Component[] }) | null =
     await TaskModel.findOne({ _id: params.taskId })
@@ -15,6 +19,4 @@ const Page = async ({ params }: { params: { taskId: string } }) => {
   }
 
   return <FormUpdate task={task} />;
-};
-
-export default Page;
+}

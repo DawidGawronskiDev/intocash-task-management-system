@@ -26,6 +26,10 @@ export const columns: ColumnDef<Device>[] = [
     header: "Quantity",
   },
   {
+    accessorKey: "condition",
+    header: "Condition",
+  },
+  {
     enableHiding: true,
     id: "actions",
     cell: ({ row }) => {

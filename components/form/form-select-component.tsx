@@ -181,7 +181,11 @@ const SelectComponent = ({ index, onChange, data }: SelectComponentProps) => {
                   key={component._id.toString()}
                   value={component._id.toString()}
                 >
-                  {component.size || component.name}
+                  <p>
+                    {component.size && component.size + "GB"}{" "}
+                    {component.name && component.name}
+                  </p>
+                  <p className="text-black/50 text-xs">{component.forDevice}</p>
                 </SelectItem>
               ))}
             </SelectContent>

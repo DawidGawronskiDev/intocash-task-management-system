@@ -1,14 +1,13 @@
 import Header from "@/components/dashboard/header/header";
 import "@/app/globals.css";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
-const DashboardLayout = ({
-  children,
-  tasks,
-}: {
+type LayoutProps = {
   children: ReactNode;
   tasks: ReactNode;
-}) => {
+};
+
+export default function DashboardLayout({ children, tasks }: LayoutProps) {
   return (
     <div>
       <Header />
@@ -19,6 +18,4 @@ const DashboardLayout = ({
       </main>
     </div>
   );
-};
-
-export default DashboardLayout;
+}

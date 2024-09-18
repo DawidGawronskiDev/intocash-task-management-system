@@ -1,14 +1,20 @@
 import FormUpdate from "@/components/dashboard/keys/form-update";
-import KeyModel from "@/models/key-model";
+import { getKey } from "@/lib/http";
 
-const Page = async ({ params }: { params: { keyId: string } }) => {
-  const key = await KeyModel.findOne({ _id: params.keyId });
+type PageProps = {
+  params: { keyId: string };
+};
+
+export default async function KeyUpdatePage({ params }: PageProps) {
+  const key = await getKey(params.keyId);
+
+  if (!key) {
+    return <p className="text-destructive">Failed to load key</p>;
+  }
 
   return (
     <div>
       <FormUpdate data={key} />
     </div>
   );
-};
-
-export default Page;
+}

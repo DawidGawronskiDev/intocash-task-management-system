@@ -1,7 +1,5 @@
 import Loader from "@/components/shared/loader";
 
-const LoadingElement = () => {
+export default function LoadingElement() {
   return <Loader />;
-};
-
-export default LoadingElement;
+}

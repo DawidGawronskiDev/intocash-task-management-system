@@ -1,15 +1,13 @@
 import { DataTable } from "@/components/dashboard/devices/data-table";
 import { columns } from "@/components/dashboard/devices/columns";
-import DeviceModel from "@/models/device-model";
+import { getDevices } from "@/lib/http";
 
-const DevicesPage = async () => {
-  const devices = await DeviceModel.find({}).sort({ createdAt: -1 });
+export default async function DevicesPage() {
+  const allDevices = await getDevices();
 
   return (
     <div>
-      <DataTable columns={columns} data={devices} />
+      <DataTable columns={columns} data={allDevices} />
     </div>
   );
-};
-
-export default DevicesPage;
+}

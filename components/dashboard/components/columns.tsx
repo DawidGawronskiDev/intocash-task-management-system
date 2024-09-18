@@ -10,12 +10,21 @@ export const columns: ColumnDef<Component>[] = [
     header: "Type",
   },
   {
+    accessorKey: "forDevice",
+    header: "For",
+  },
+  {
     accessorKey: "name",
     header: "Name",
   },
   {
     accessorKey: "size",
-    header: "size",
+    header: "Size",
+    cell: ({ row }) => {
+      const size = row.getValue("size");
+
+      return size === 0 ? "" : size + "GB";
+    },
   },
   {
     accessorKey: "quantity",

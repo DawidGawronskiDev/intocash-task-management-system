@@ -28,6 +28,7 @@ const FormContent = () => {
       />
       <FormInput name="model" label="Model" placeholder="Model" />
       <FormInput name="shelf" label="Shelf" placeholder="Shelf" />
+
       <FormSelectComponets />
 
       <FormSelect

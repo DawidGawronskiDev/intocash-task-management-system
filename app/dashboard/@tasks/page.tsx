@@ -1,8 +1,10 @@
 import TasksChart from "@/components/dashboard/tasks/tasks-chart";
+import { dbConnect } from "@/lib/dbConnect";
 import TaskModel from "@/models/task-model";
 import { differenceInDays } from "date-fns";
 
-const Page = async () => {
+export default async function TasksInfo() {
+  await dbConnect();
   const tasks = await TaskModel.find({});
 
   const todaysTask = tasks.filter(
@@ -52,6 +54,4 @@ const Page = async () => {
       <TasksChart tasks={tasks} />
     </div>
   );
-};
-
-export default Page;
+}

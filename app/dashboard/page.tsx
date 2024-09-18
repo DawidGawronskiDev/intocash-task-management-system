@@ -1,5 +1,3 @@
-const DashboardPage = () => {
+export default function DashboardPage() {
   return null;
-};
-
-export default DashboardPage;
+}

@@ -1,15 +1,16 @@
 import InfoGrid from "@/components/info-grid";
 import Status from "@/components/shared/task-status";
 import { Separator } from "@/components/ui/separator";
+import { getTask } from "@/lib/http";
 import { Component } from "@/models/component-model";
-import TaskModel from "@/models/task-model";
 import { TaskStatus } from "@/types";
 
-const TaskPage = async ({ params }: { params: { taskId: string } }) => {
-  const task = await TaskModel.findOne({ _id: params.taskId }).populate([
-    "device",
-    "components",
-  ]);
+type PageProps = {
+  params: { taskId: string };
+};
+
+export default async function TaskPage({ params }: PageProps) {
+  const task = await getTask(params.taskId);
 
   return (
     <div className="grid gap-16">
@@ -62,6 +63,4 @@ const TaskPage = async ({ params }: { params: { taskId: string } }) => {
       />
     </div>
   );
-};
-
-export default TaskPage;
+}

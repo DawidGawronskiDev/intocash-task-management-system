@@ -1,17 +1,20 @@
 import FormUpdate from "@/components/dashboard/components/form-update";
-import ComponentModel, { Component } from "@/models/component-model";
+import { getComponent } from "@/lib/http";
 
-const Page = async ({ params }: { params: { componentId: string } }) => {
-  const component = await ComponentModel.findOne({ _id: params.componentId });
+type PageProps = {
+  params: { componentId: string };
+};
+
+export default async function ComponentUpdatePage({ params }: PageProps) {
+  const component = await getComponent(params.componentId);
+
+  if (!component) {
+    return <p className="text-destructive">Failed to load component</p>;
+  }
 
   return (
     <div>
-      <FormUpdate
-        component={component as Component}
-        componentId={params.componentId}
-      />
+      <FormUpdate component={component} componentId={params.componentId} />
     </div>
   );
-};
-
-export default Page;
+}

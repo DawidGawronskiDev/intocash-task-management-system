@@ -1,11 +1,9 @@
 import FormCreate from "@/components/dashboard/tasks/form-create";
 
-const TasksCreatePage = () => {
+export default function TasksCreatePage() {
   return (
     <div>
       <FormCreate />
     </div>
   );
-};
-
-export default TasksCreatePage;
+}

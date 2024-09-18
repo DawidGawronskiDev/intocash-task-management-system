@@ -1,21 +1,8 @@
 import { columns } from "@/components/dashboard/components/columns";
 import { DataTable } from "@/components/dashboard/components/data-table";
-import ComponentModel, { Component } from "@/models/component-model";
-import { dbConnect } from "@/lib/dbConnect";
+import { getComponents } from "@/lib/http";
 
-const getComponents = async (): Promise<Component[] | null> => {
-  try {
-    await dbConnect();
-    const components = await ComponentModel.find({}).sort({ createdAt: -1 });
-
-    return components;
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
-};
-
-const ComponentsPage = async () => {
+export default async function ComponentsPage() {
   const components = await getComponents();
 
   if (!components) {
@@ -29,6 +16,4 @@ const ComponentsPage = async () => {
       <DataTable columns={columns} data={components} />
     </div>
   );
-};
-
-export default ComponentsPage;
+}

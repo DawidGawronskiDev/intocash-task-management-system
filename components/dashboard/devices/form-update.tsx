@@ -18,6 +18,8 @@ const FormUpdate = ({
   device: Omit<Device, "components"> & { components: Component[] };
   deviceId: string;
 }) => {
+  console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", device);
+
   const methods = useForm({
     resolver: zodResolver(DeviceSchema),
     defaultValues: {

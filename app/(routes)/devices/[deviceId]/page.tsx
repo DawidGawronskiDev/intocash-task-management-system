@@ -1,15 +1,17 @@
 import InfoGrid from "@/components/info-grid";
+import { getDevice } from "@/lib/http";
 import { Component } from "@/models/component-model";
-import DeviceModel, { Device } from "@/models/device-model";
 
 type PageProps = {
   params: { deviceId: string };
 };
 
-const Page = async ({ params }: PageProps) => {
-  const device = await DeviceModel.findOne({ _id: params.deviceId }).populate(
-    "components"
-  );
+export default async function ComponentPage({ params }: PageProps) {
+  const device = await getDevice(params.deviceId);
+
+  if (!device) {
+    return <p className="text-destructive">Failed to load device</p>;
+  }
 
   return (
     <div className="grid gap-16">
@@ -53,6 +55,4 @@ const Page = async ({ params }: PageProps) => {
       />
     </div>
   );
-};
-
-export default Page;
+}
