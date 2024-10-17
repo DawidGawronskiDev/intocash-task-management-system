@@ -5,12 +5,32 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Ellipsis, Eye, RefreshCcw } from "lucide-react";
+import { Copy, Ellipsis, Eye, RefreshCcw } from "lucide-react";
 import Link from "next/link";
 import DialogDelete from "./task-dialog-delete";
+import axios from "axios";
+import { revalidateTag } from "next/cache";
+import { Component } from "@/models/component-model";
 
 type ColumnActionsProps = {
   id: string;
+};
+
+const handleDuplicate = async (id: string) => {
+  const {
+    data: { data },
+  } = await axios.get("/api/tasks/" + id);
+
+  const duplicatedTask = {
+    ...data,
+    device: data.device._id.toString(),
+    components: data.components.map((component: Component) => ({
+      type: component.type,
+      componentId: component._id,
+    })),
+  };
+
+  await axios.post("/api/tasks", duplicatedTask);
 };
 
 const ColumnActions = ({ id }: ColumnActionsProps) => {
@@ -33,6 +53,15 @@ const ColumnActions = ({ id }: ColumnActionsProps) => {
             <RefreshCcw className="w-4 h-4 mr-2" />
             <span>Update</span>
           </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem className="flex items-center gap-2">
+          <button
+            onClick={() => handleDuplicate(id)}
+            className="flex items-center"
+          >
+            <Copy className="w-4 h-4 mr-2" />
+            <span>Duplicate</span>
+          </button>
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
           <DialogDelete taskId={id} />
