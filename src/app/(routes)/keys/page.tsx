@@ -1,15 +1,17 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { X } from "lucide-react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -32,7 +34,7 @@ const Page = () => {
 
   const { control, handleSubmit } = form;
 
-  const { fields, append } = useFieldArray({ control, name: "keys" });
+  const { fields, append, remove } = useFieldArray({ control, name: "keys" });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
@@ -41,23 +43,55 @@ const Page = () => {
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {fields.map((field, index) => (
-          <FormField
-            key={index}
-            name={`fields.${index}`}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Key</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
-                    onChange={field.onChange}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-        ))}
+        <ul className="space-y-4">
+          {fields.map((field, index) => (
+            <li key={index} className="flex gap-4">
+              <FormField
+                name={`keys.${index}.content`}
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormControl>
+                      <Input
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name={`keys.${index}.type`}
+                render={({ field }) => (
+                  <FormItem className="w-28">
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select key type" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="Windows">Windows</SelectItem>
+                        <SelectItem value="Office">Office</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
+              <Button
+                type="button"
+                variant="destructive"
+                onClick={() => remove(index)}
+                className="aspect-square"
+              >
+                <X />
+              </Button>
+            </li>
+          ))}
+        </ul>
         <Button
           type="button"
           onClick={() => append({ type: "Windows", content: "" })}
