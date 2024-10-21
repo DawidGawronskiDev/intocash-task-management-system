@@ -1,0 +1,13 @@
+CREATE TYPE component_type AS ENUM('RAM', 'SSD', 'HDD', 'CPU', 'CPU Fan', 'Power Supply', 'Cable', 'Case');
+CREATE TYPE device_type AS ENUM('Laptop', 'Desktop');
+
+CREATE TABLE components (
+  component_id SERIAL PRIMARY KEY,
+  type component_type NOT NULL,
+  quantity INT NOT NULL,
+  name VARCHAR(255),
+  location VARCHAR(255),
+  for_device device_type NOT NULL,
+  description TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
